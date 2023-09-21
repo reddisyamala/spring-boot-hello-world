@@ -7,6 +7,7 @@ pipeline {
                script {
                   sh "ls -lrt"
                   sh "mvn install"
+                  sh "ls -lrt target/*"
                }
             }
         }
