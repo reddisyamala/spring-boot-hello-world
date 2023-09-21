@@ -1,15 +1,12 @@
 pipeline {
    agent any
    stages {
-        stage("Checkout"){
-            steps {
-                echo "Checkout Stage....."
-            }
-        }
-
+        
         stage("Build"){
             steps {
-                echo "Building Code....."
+               script {
+                  sh "ls -lrt"
+               }
             }
         }
 
