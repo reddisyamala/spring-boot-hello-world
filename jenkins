@@ -1,26 +1,10 @@
 pipeline {
     agent any
-
-    stages {
-        stage('checkout') {
-            steps {
-                echo 'checkout stage.....'
-            }
-        }
         stage('build') {
             steps {
-                echo 'build stage.....'
-            }
-        }
-        stage('test') {
-            steps {
-                echo 'unit-test.....'
-            }
-        }
-        stage('code') {
-            steps {
-                echo 'code analysis.....'
                 script{ 
+                    sh "ls -lrt"
+                    sh "mvn install"
                     sh "ls -lrt"
                 }
             }
