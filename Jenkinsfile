@@ -6,6 +6,7 @@ pipeline {
             steps {
                script {
                   sh "ls -lrt"
+                  sh "mvn install"
                }
             }
         }
