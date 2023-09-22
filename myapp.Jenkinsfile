@@ -23,7 +23,13 @@ pipeline {
         stage("Code Analysis"){
             steps {
                 withSonarQubeEnv('mysonarQube') {
-                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=spring-boot-hello-world -Dsonar.projectName=spring-boot-hello-world -Dsonar.sources=. -Dsonar.java.binaries=target/classes -Dsonar.sourceEncoding=UTF-8"
+                    sh """ ${scannerHome}/bin/sonar-scanner \
+                    -Dsonar.projectKey=spring-boot-hello-world \
+                    -Dsonar.projectName=spring-boot-hello-world \
+                    -Dsonar.sources=. \
+                    -Dsonar.java.binaries=target/classes \
+                    -Dsonar.sourceEncoding=UTF-8
+                    """
                 }
             }
         }
