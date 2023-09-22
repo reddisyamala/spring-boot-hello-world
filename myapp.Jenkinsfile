@@ -1,5 +1,8 @@
 pipeline {
    agent any
+    environment {
+        def scannerHome = tool 'sonarScanner5.0.1'
+    }
    stages {
         stage("Build"){
             steps {
@@ -13,6 +16,14 @@ pipeline {
             steps {
                 script {
                     sh "mvn test"
+                }
+            }
+        }
+
+        stage("Code Analysis"){
+            steps {
+                withSonarQubeEnv('mysonarQube') {
+                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=spring-boot-hello-world -Dsonar.projectName=spring-boot-hello-world -Dsonar.sources=. -Dsonar.java.binaries=target/classes -Dsonar.sourceEncoding=UTF-8"
                 }
             }
         }
