@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+
+    stages{
+        stage('build') {
+            steps {
+                script{ 
+                    sh "ls -lrt"
+                    sh "mvn install"
+                    sh "ls -lrt"
+                }
+            }
+        }
+    }
+}
+
