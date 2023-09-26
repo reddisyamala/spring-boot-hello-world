@@ -45,7 +45,7 @@ pipeline {
          stage("Upload Artifacts") {
             steps {
                 rtServer (
-                    id: 'artifactorydev',
+                    id: 'jfrogdev',
                     url: 'http://683b06656b2c.mylabserver.com/artifactory',
                     username: 'admin',
                     password: 'Admin@123',
@@ -54,7 +54,7 @@ pipeline {
                 )
 
                 rtUpload (
-                    serverId: "artifactorydev",
+                    serverId: "jfrogdev",
                     spec:
                         """{
                         "files": [
