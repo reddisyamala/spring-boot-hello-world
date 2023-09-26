@@ -42,6 +42,36 @@ pipeline {
             }
         }
 
+         stage("Upload Artifacts") {
+            steps {
+                rtServer (
+                    id: 'artifactor-dev',
+                    url: 'http://683b06656b2c.mylabserver.com/artifactory',
+                    username: 'admin',
+                    password: 'Admin@123'
+                    // credentialsId: 'ccrreeddeennttiiaall'
+                    bypassProxy: true
+                    timeout = 300
+                )
+
+                rtUpload (
+                    serverId: "artifactor-dev",
+                    spec:
+                        """{
+                        "files": [
+                            {
+                            "pattern": "targe/*.jar",
+                            "target": "example-repo-local/springbootapp/"
+                            }
+                        ]
+                        }""",
+                    failNoOp: true
+                )
+
+
+            }
+        }
+
 
     }
 }
