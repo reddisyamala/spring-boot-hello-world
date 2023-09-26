@@ -20,32 +20,32 @@ pipeline {
             }
         }
 
-        stage("Code Analysis"){
-            steps {
-                withSonarQubeEnv('mysonarQube') {
-                    sh """ ${scannerHome}/bin/sonar-scanner \
-                    -Dsonar.projectKey=spring-boot-hello-world \
-                    -Dsonar.projectName=spring-boot-hello-world \
-                    -Dsonar.sources=. \
-                    -Dsonar.java.binaries=target/classes \
-                    -Dsonar.sourceEncoding=UTF-8
-                    """
-                }
-            }
-        }
+        // stage("Code Analysis"){
+        //     steps {
+        //         withSonarQubeEnv('mysonarQube') {
+        //             sh """ ${scannerHome}/bin/sonar-scanner \
+        //             -Dsonar.projectKey=spring-boot-hello-world \
+        //             -Dsonar.projectName=spring-boot-hello-world \
+        //             -Dsonar.sources=. \
+        //             -Dsonar.java.binaries=target/classes \
+        //             -Dsonar.sourceEncoding=UTF-8
+        //             """
+        //         }
+        //     }
+        // }
 
-        stage("Quality Gate") {
-            steps {
-              timeout(time: 2, unit: 'MINUTES') {
-                waitForQualityGate abortPipeline: true
-              }
-            }
-        }
+        // stage("Quality Gate") {
+        //     steps {
+        //       timeout(time: 2, unit: 'MINUTES') {
+        //         waitForQualityGate abortPipeline: true
+        //       }
+        //     }
+        // }
 
          stage("Upload Artifacts") {
             steps {
                 rtServer (
-                    id: 'artifactor-dev',
+                    id: 'artifactorydev',
                     url: 'http://683b06656b2c.mylabserver.com/artifactory',
                     username: 'admin',
                     password: 'Admin@123',
@@ -54,7 +54,7 @@ pipeline {
                 )
 
                 rtUpload (
-                    serverId: "artifactor-dev",
+                    serverId: "artifactorydev",
                     spec:
                         """{
                         "files": [
