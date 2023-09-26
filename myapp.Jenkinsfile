@@ -48,9 +48,8 @@ pipeline {
                     id: 'artifactor-dev',
                     url: 'http://683b06656b2c.mylabserver.com/artifactory',
                     username: 'admin',
-                    password: 'Admin@123'
+                    password: 'Admin@123',
                     // credentialsId: 'ccrreeddeennttiiaall'
-                    bypassProxy: true
                     timeout = 300
                 )
 
