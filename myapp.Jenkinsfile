@@ -3,7 +3,7 @@ pipeline {
     environment {
         def scannerHome = tool 'sonarScanner5.0.1'
     }
-   stages {
+    stages {
         stage("Build"){
             steps {
                script {
@@ -69,7 +69,7 @@ pipeline {
             }
         } 
 
-        //  stage("Upload Artifacts") {
+        // stage("Upload Artifacts") {
         //     steps {
         //         rtServer (
         //             id: 'jfrogdev',
@@ -97,5 +97,10 @@ pipeline {
 
         //     }
         // }
+    }
+    post {
+        always {
+             cleanWs()
+        }
     }
 }
