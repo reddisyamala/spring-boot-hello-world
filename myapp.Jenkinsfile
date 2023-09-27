@@ -4,14 +4,14 @@ pipeline {
         def scannerHome = tool 'sonarScanner5.0.1'
     }
     stages {
-        // stage("Build"){
-        //     steps {
-        //        script {
-        //         sh "mvn install"
-        //         sh "mv target/*.jar target/spring-boot-2-hello-world-1.0.2-SNAPSHOT-${BUILD_NUMBER}.jar"
-        //        }
-        //     }
-        // }
+        stage("Build"){
+            steps {
+               script {
+                sh "mvn install"
+                sh "mv target/*.jar target/spring-boot-2-hello-world-1.0.2-SNAPSHOT-${BUILD_NUMBER}.jar"
+               }
+            }
+        }
 
         // stage("Unit-Test"){
         //     steps {
@@ -70,8 +70,8 @@ pipeline {
         stage("Deploy - Dev"){
             steps {
                 sshagent(['ssh-creds']) {
-                   sh """                    
-                          ssh -o StrictHostKeyChecking=no -T cloud_user@683b06656b2c.mylabserver.com uptime
+                   sh """      
+                       scp     target/*.jar    cloud_user@683b06656b2c.mylabserver.com:/home/cloud_user
                     """
                 }
             }
