@@ -13,59 +13,59 @@ pipeline {
             }
         }
 
-        // stage("Unit-Test"){
-        //     steps {
-        //         script {
-        //             sh "mvn test"
-        //         }
-        //     }
-        // }
+        stage("Unit-Test"){
+            steps {
+                script {
+                    sh "mvn test"
+                }
+            }
+        }
 
-        // stage("Code Analysis"){
-        //     steps {
-        //         withSonarQubeEnv('mysonarQube') {
-        //             sh """ ${scannerHome}/bin/sonar-scanner \
-        //             -Dsonar.projectKey=spring-boot-hello-world \
-        //             -Dsonar.projectName=spring-boot-hello-world \
-        //             -Dsonar.sources=. \
-        //             -Dsonar.java.binaries=target/classes \
-        //             -Dsonar.sourceEncoding=UTF-8
-        //             """
-        //         }
-        //     }
-        // }
+        stage("Code Analysis"){
+            steps {
+                withSonarQubeEnv('mysonarQube') {
+                    sh """ ${scannerHome}/bin/sonar-scanner \
+                    -Dsonar.projectKey=spring-boot-hello-world \
+                    -Dsonar.projectName=spring-boot-hello-world \
+                    -Dsonar.sources=. \
+                    -Dsonar.java.binaries=target/classes \
+                    -Dsonar.sourceEncoding=UTF-8
+                    """
+                }
+            }
+        }
 
-        // stage("Quality Gate") {
-        //     steps {
-        //       timeout(time: 2, unit: 'MINUTES') {
-        //         waitForQualityGate abortPipeline: true
-        //       }
-        //     }
-        // }
-        // stage("Upload Artifacts"){
-        //     steps{
+        stage("Quality Gate") {
+            steps {
+              timeout(time: 2, unit: 'MINUTES') {
+                waitForQualityGate abortPipeline: true
+              }
+            }
+        }
+        stage("Upload Artifacts"){
+            steps{
                 
-        //         rtServer (
-        //                 id: 'jfrog-server',
-        //                 url: 'http://683b06656b2c.mylabserver.com/artifactory/',
-        //                 // If you're using username and password:
-        //                 username: 'admin',
-        //                 password: 'Admin@123',
-        //                 timeout: 300
-        //         )
-        //         rtUpload (
-        //             serverId: 'jfrog-server',
-        //             spec: '''{
-        //                 "files": [
-        //                     {
-        //                     "pattern": "target/*.jar",
-        //                     "target": "example-repo-local/spring-boot-hello-world/"
-        //                     }
-        //                 ]
-        //             }''',
-        //         )    
-        //     }
-        // } 
+                rtServer (
+                        id: 'jfrog-server',
+                        url: 'http://683b06656b2c.mylabserver.com/artifactory/',
+                        // If you're using username and password:
+                        username: 'admin',
+                        password: 'Admin@123',
+                        timeout: 300
+                )
+                rtUpload (
+                    serverId: 'jfrog-server',
+                    spec: '''{
+                        "files": [
+                            {
+                            "pattern": "target/*.jar",
+                            "target": "example-repo-local/spring-boot-hello-world/"
+                            }
+                        ]
+                    }''',
+                )    
+            }
+        } 
 
         stage("Deploy - Dev"){
             steps {
@@ -81,7 +81,11 @@ pipeline {
         stage("Deploy - UAT"){
             steps {
 
-                echo "Deploying UAT Servers....."
+                sshagent(['ssh-creds']) {
+                sh """      
+                    scp     target/*.jar    cloud_user@683b06656b3c.mylabserver.com:/home/cloud_user
+                """
+            }
             }
 
         }
@@ -89,7 +93,11 @@ pipeline {
         stage("Deploy - Prod"){
             steps {
 
-                echo "Deploying Production Servers....."
+                sshagent(['ssh-creds']) {
+                sh """      
+                    scp     target/*.jar    cloud_user@683b06656b3c.mylabserver.com:/home/cloud_user
+                """
+            }
             }
 
         }
