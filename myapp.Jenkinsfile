@@ -71,7 +71,7 @@ pipeline {
             steps {
                 sshagent(['ssh-creds']) {
                    sh """      
-                       scp     target/*.jar    cloud_user@683b06656b2c.mylabserver.com:/home/cloud_user
+                       scp   -o StrictHostKeyChecking=no  target/*.jar    cloud_user@683b06656b2c.mylabserver.com:/home/cloud_user
                     """
                 }
             }
@@ -83,7 +83,7 @@ pipeline {
 
                 sshagent(['ssh-creds']) {
                 sh """      
-                    scp     target/*.jar    cloud_user@683b06656b3c.mylabserver.com:/home/cloud_user
+                    scp  -o StrictHostKeyChecking=no   target/*.jar    cloud_user@683b06656b3c.mylabserver.com:/home/cloud_user
                 """
             }
             }
@@ -95,7 +95,7 @@ pipeline {
 
                 sshagent(['ssh-creds']) {
                 sh """      
-                    scp     target/*.jar    cloud_user@683b06656b3c.mylabserver.com:/home/cloud_user
+                    scp    -o StrictHostKeyChecking=no  target/*.jar    cloud_user@683b06656b3c.mylabserver.com:/home/cloud_user
                 """
             }
             }
