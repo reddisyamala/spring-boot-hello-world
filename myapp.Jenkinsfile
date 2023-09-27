@@ -69,8 +69,8 @@ pipeline {
 
         stage("Deploy - Dev"){
             steps {
-                sshagent(credentials: ['ssh-creds']) {
-                    sh """                    
+                sshagent(['ssh-creds']) {
+                   sh """                    
                           ssh -o StrictHostKeyChecking=no -T cloud_user@683b06656b2c.mylabserver.com uptime
                     """
                 }
