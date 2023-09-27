@@ -91,6 +91,10 @@ pipeline {
         }
 
         stage("Deploy - Prod"){
+            input{
+                 message "Do you want to proceed for production deployment?"
+            }
+
             steps {
 
                 sshagent(['ssh-creds']) {
