@@ -7,10 +7,8 @@ pipeline {
         stage("Build"){
             steps {
                script {
-                sh "rm -rf target/*.jar"
                 sh "mvn install"
                 sh "mv target/*.jar target/spring-boot-2-hello-world-1.0.2-SNAPSHOT-${BUILD_NUMBER}.jar"
-                sh "printenv"
                }
             }
         }
@@ -69,34 +67,29 @@ pipeline {
             }
         } 
 
-        // stage("Upload Artifacts") {
-        //     steps {
-        //         rtServer (
-        //             id: 'jfrogdev',
-        //             url: 'http://683b06656b2c.mylabserver.com/artifactory/',
-        //             username: 'admin',
-        //             password: 'Admin@123',
-        //             // credentialsId: 'ccrreeddeennttiiaall'
-        //             timeout = 300
-        //         )
+        stage("Deploy - Dev"){
+            steps {
 
-        //         rtUpload (
-        //             serverId: "jfrogdev",
-        //             spec:
-        //                 """{
-        //                 "files": [
-        //                     {
-        //                     "pattern": "targe/*.jar",
-        //                     "target": "example-repo-local/springbootapp/"
-        //                     }
-        //                 ]
-        //                 }""",
-        //             failNoOp: true
-        //         )
+                echo "Deploying Dev Servers....."
+            }
 
+        }
 
-        //     }
-        // }
+        stage("Deploy - UAT"){
+            steps {
+
+                echo "Deploying UAT Servers....."
+            }
+
+        }
+
+        stage("Deploy - Prod"){
+            steps {
+
+                echo "Deploying Production Servers....."
+            }
+
+        }
     }
     post {
         always {
