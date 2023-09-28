@@ -1,4 +1,3 @@
-//testing
 pipeline {
    agent any
     environment {
