@@ -25,6 +25,21 @@ pipeline {
                     }
                 }
             }
-        } 
+        }
+        stage("Dev"){
+            steps {
+                echo "Dev...."
+            }
+        }
+        stage("UAT"){
+            steps {
+                echo "Testing...."
+            }
+        }
+        stage("PRD"){
+            steps {
+                echo "Production...."
+            }
+        }
     }
 }
