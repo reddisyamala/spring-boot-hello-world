@@ -17,9 +17,8 @@ pipeline {
                     sh "mvn test"
                 }
             }
-        }
-    }
-}
+        }  
+
 stage("Code Analysis"){
             steps {
                 withSonarQubeEnv('sonarqube') {
@@ -42,6 +41,8 @@ stage("Code Analysis"){
             }
         }
     }
+   }
+}
  
 
        
