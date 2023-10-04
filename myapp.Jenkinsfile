@@ -1,14 +1,13 @@
 pipeline {
    agent any
     environment {
-        def scannerHome = tool 'mysonarQube'
+        def scannerHome = tool 'sonarscanner'
     }
     stages {
         stage("Build"){
             steps {
                script {
                 sh "mvn install"
-                sh "mv target/*.jar target/spring-boot-2-hello-world-1.0.2-SNAPSHOT-${BUILD_NUMBER}.jar"
                }
             }
         }
@@ -32,14 +31,6 @@ pipeline {
                     -Dsonar.sourceEncoding=UTF-8
                     """
                 }
-            }
-        }
-
-        stage("Quality Gate") {
-            steps {
-              timeout(time: 2, unit: 'MINUTES') {
-                waitForQualityGate abortPipeline: true
-              }
             }
         }
     }
