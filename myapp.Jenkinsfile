@@ -45,7 +45,7 @@ pipeline {
                 
                 rtServer (
                         id: 'jfrog-server',
-                        url: 'http://683b06656b2c.mylabserver.com/artifactory/',
+                        url: 'http://192.168.29.189:8082/artifactory',
                         // If you're using username password
                         username: 'admin',
                         password: '$Uriya@32',
@@ -57,7 +57,7 @@ pipeline {
                         "files": [
                             {
                             "pattern": "target/*.jar",
-                            "target": "example-repo-local/spring-boot-hello-world/"
+                            "target": "example-repo-local/"
                             }
                         ]
                     }''',
