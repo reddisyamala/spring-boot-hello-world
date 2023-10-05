@@ -40,6 +40,30 @@ pipeline {
               }
             }
         }
+        stage("Upload Artifacts"){
+            steps{
+                
+                rtServer (
+                        id: 'jfrog-server',
+                        url: 'http://683b06656b2c.mylabserver.com/artifactory/',
+                        // If you're using username password
+                        username: 'admin',
+                        password: '$Uriya@32',
+                        timeout: 300
+                )
+                rtUpload (
+                    serverId: 'jfrog-server',
+                    spec: '''{
+                        "files": [
+                            {
+                            "pattern": "target/*.jar",
+                            "target": "example-repo-local/spring-boot-hello-world/"
+                            }
+                        ]
+                    }''',
+                )    
+            }
+        } 
     }
 }
  
