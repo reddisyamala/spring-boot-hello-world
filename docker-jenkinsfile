@@ -9,7 +9,7 @@ pipeline {
    
     stage('Build-Code'){
         steps {
-            script {add
+            script {
                 sh "mvn install"
             }
         }
@@ -30,5 +30,28 @@ pipeline {
             }
         }
     }
-}
+   
+    // stage('imageBuild'){
+    //     steps {
+    //         script {
+    //             sh "docker build -t vsiraparapu/hello-world:latest ."
+    //         }
+    //     }
+    // }
+    // stage('pushImageRegistry'){
+    //     steps {
+    //         script {
+    //             sh """
+    //               docker login -u vsiraparapu -p dckr_pat_d2Ze8mBpKEfPeVQMsF__XH_-ynI
+    //               docker push vsiraparapu/hello-world:latest
+    //               docker tag vsiraparapu/hello-world:latest vsiraparapu/hello-world:${BUILD_NUMBER}-slim-bullseye
+    //               docker push vsiraparapu/hello-world:${BUILD_NUMBER}-slim-bullseye
+    //               docker rmi vsiraparapu/hello-world:${BUILD_NUMBER}-slim-bullseye
+    //             """
+    //         }
+    //     }
+    // }
+
+  }
+ 
 }
