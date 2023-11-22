@@ -2,7 +2,7 @@ pipeline {
   agent any
   environment {
         registry = "syamala31/hello-world"
-        registryCredential = '376079a9-b0b1-4007-acb4-5c67444b5df6'
+        registryCredential = 'da2fc7ba-5df5-4919-b8ff-fb4cc2ba2d0e'
         dockerImage = ''
     }
   stages {
