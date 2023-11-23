@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-        registry = "syamala31/hello-world"
+        registry = "syamala31/hello-world:latest ."
         registryCredential = 'docker.hub.k8s'
         dockerImage = ''
     }
